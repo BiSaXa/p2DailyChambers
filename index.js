@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 
 client.on('ready', () => {
-  pbchannel = client.channels.cache.find(channel => channel.id === 856992133888868392)
+  const pbchannel = await client.channels.cache.find(channel => channel.id === 856992133888868392)
   console.log('yeet')
   pbchannel.send('Todays chamber is death.')
 })
