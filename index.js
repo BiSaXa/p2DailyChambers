@@ -2,9 +2,12 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 
 client.on('ready', () => {
-  const pbchannel = await client.channels.cache.find(channel => channel.id === 856992133888868392)
   console.log('yeet')
-  pbchannel.send('Todays chamber is death.')
+})
+
+client.on('message', async(msg) => {
+  const pbchannel = await client.channels.cache.find(channel => channel.id === 856992133888868392)
+  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF").setAuthor("BSX").setDescription('bruh'))
 })
 
 client.login(process.env.BOT_TOKEN)
