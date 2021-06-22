@@ -7,7 +7,7 @@ client.on('ready', async(msg) => {
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Good morning #pb-posting")
-  .setDescription('It's ' + d.toLocaleDateString()))
+  .setDescription('It\'s ' + d.toLocaleDateString()))
   .catch(err => console.log(err))
 })
 
