@@ -1,5 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
+const monthNames = ["January", "February", "March", "April", "May", "June",
+ "July", "August", "September", "October", "November", "December"]
 
 client.on('ready', async(msg) => {
   console.log('yeet')
@@ -7,7 +9,7 @@ client.on('ready', async(msg) => {
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Good morning #pb-posting")
-  .setDescription('It\'s ' + d.toLocaleDateString()))
+  .setDescription('It\'s ' + monthNames[d.getMonth()+1]))
   .catch(err => console.log(err))
 })
 
