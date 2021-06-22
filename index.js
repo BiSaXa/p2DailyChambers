@@ -14,8 +14,8 @@ client.on('ready', async(msg) => {
   var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
-  .setAuthor("Good morning #pb-posting")
-  .setDescription(reminder)
+  .setAuthor("Hello there, #pb-posting")
+  .setDescription(reminder))
   .catch(err => console.log(err))
 })
 
