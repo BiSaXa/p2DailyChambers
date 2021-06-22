@@ -7,13 +7,15 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
      return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
  };
 
+ const reminder = ("It\'s" + monthNames[d.getMonth()+1] + ' ' + dateOrdinal(d.getDate()))
+
 client.on('ready', async(msg) => {
   console.log('yeet')
   var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Good morning #pb-posting")
-  .setDescription('It\'s ' + monthNames[d.getMonth()+1]) + ' ' + dateOrdinal(d.getDate()))
+  .setDescription(reminder)
   .catch(err => console.log(err))
 })
 
