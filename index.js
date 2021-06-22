@@ -3,10 +3,11 @@ const client = new Discord.Client()
 
 client.on('ready', async(msg) => {
   console.log('yeet')
+  var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Good morning #pb-posting")
-  .setDescription('bruh'))
+  .setDescription('It's ' + d.toLocaleDateString()))
   .catch(err => console.log(err))
 })
 
