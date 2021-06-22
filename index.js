@@ -35,7 +35,7 @@ client.on('ready', () => {
   console.log('yeet')
 })
 
-const daily = new cron.CronJob('13 * * * * *', async(msg) => {
+const daily = new cron.CronJob('14 * * * * *', async(msg) => {
   console.log('sending reminder')
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()+1] + " " + dateOrdinal(d.getDate()) +
