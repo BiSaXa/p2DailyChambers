@@ -24,15 +24,17 @@ var d = new Date();
 
  function dateOrdinal(d) {
      return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
- };
+ }
 
-
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 client.on('ready', async(msg) => {
   console.log('yeet')
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()+1] + " " + dateOrdinal(d.getDate()) +
- "! You know what that means? \nToday\'s chambers are \`" + spMaps[58] + "\` and \`" + mpMaps[47] + "\`. \nEnjoy! #dailychamber" )
+ "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder))
