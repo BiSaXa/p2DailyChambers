@@ -1,3 +1,4 @@
+const cron = require('cron')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -30,8 +31,12 @@ function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-client.on('ready', async(msg) => {
+client.on('ready', () => {
   console.log('yeet')
+})
+
+const daily = new cron.CronJob('09 * * * * *', async(msg) => {
+  console.log('sending reminder')
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()+1] + " " + dateOrdinal(d.getDate()) +
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber" )
@@ -39,10 +44,7 @@ client.on('ready', async(msg) => {
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder))
   .catch(err => console.log(err))
-})
-
-client.on('message', async(msg) => {
-
+  console.log('sent reminder')
 })
 
 client.login(process.env.BOT_TOKEN)
