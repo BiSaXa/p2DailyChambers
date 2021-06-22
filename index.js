@@ -10,7 +10,7 @@ var d = new Date();
  };
 
  const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()+1] + " " + dateOrdinal(d.getDate()) +
-"! You know what that means? \nToday\'s chambers are \`fuck and \`portal enjoy! #dailychamber" )
+"! You know what that means? \nToday\'s chambers are \`fuck and \`portal Enjoy! #dailychamber" )
 
 client.on('ready', async(msg) => {
   console.log('yeet')
