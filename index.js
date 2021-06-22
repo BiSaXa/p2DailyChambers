@@ -4,7 +4,9 @@ const client = new Discord.Client()
 client.on('ready', async(msg) => {
   console.log('yeet')
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
-  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF").setAuthor("BSX").setDescription('bruh'))
+  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
+  .setAuthor("Good morning #pb-posting")
+  .setDescription('bruh'))
   .catch(err => console.log(err))
 })
 
