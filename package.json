@@ -1,0 +1,23 @@
+{
+  "name": "p2DailyChambers",
+  "version": "1.0.0",
+  "description": "Discord bot that will announce the daily chambers in Portal 2 Speedrun Server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BiSaXa/p2DailyChambers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BiSaXa/p2DailyChambers/issues"
+  },
+  "homepage": "https://github.com/BiSaXa/p2DailyChambers#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
