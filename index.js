@@ -21,7 +21,6 @@ const mpMaps = ["Doors", "Buttons", "Lasers", "Rat Maze", "Laser Crusher", "Behi
  "Double Bounce", "Bridge Repulsion", "Wall Repulsion", "Propulsion Crushers", "Turret Ninja", "Propulsion Retrival",
  "Vault Entrance", "Separation", "Triple Axis", "Catapult Catch", "Bridge Gels", "Maintenance", "Bridge Catch",
  "Double Lift", "Gel Maze", "Crazier Box"]
-var d = new Date();
 
  function dateOrdinal(d) {
      return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
@@ -37,6 +36,7 @@ client.on('ready', () => {
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   console.log('sending reminder')
+  var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
   const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber" )
