@@ -34,7 +34,7 @@ client.on('ready', () => {
   console.log('yeet')
 })
 
-const daily = new cron.CronJob('00 05 17 * * *', async(msg) => {
+const daily = new cron.CronJob('30 06 17 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
@@ -43,7 +43,7 @@ const daily = new cron.CronJob('00 05 17 * * *', async(msg) => {
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder)
-  .setFooter("For notifications, go to <#858391985785012235> and <@&858390395380826142> type \'?l role Daily Chambers\'."))
+  .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
   .catch(err => console.log(err))
   console.log('sent reminder')
 })
