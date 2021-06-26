@@ -43,7 +43,7 @@ const daily = new cron.CronJob('00 03 17 * * *', async(msg) => {
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder)
-  .setFooter("For notifications, go to <@#856973249119649844> and type \'?l role Daily Chambers\'."))
+  .setFooter("For notifications, go to <#858391985785012235> and <@&858390395380826142> type \'?l role Daily Chambers\'."))
   .catch(err => console.log(err))
   console.log('sent reminder')
 })
