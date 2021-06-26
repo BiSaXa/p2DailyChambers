@@ -37,12 +37,13 @@ client.on('ready', () => {
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
-  const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
+  const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
   const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
- "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber" )
+ "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber <@&858390395380826142>" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder))
+  .setFooter("For notifications, go to <#856973249119649844> and type \'?l role Daily Chambers\'.");
   .catch(err => console.log(err))
   console.log('sent reminder')
 })
