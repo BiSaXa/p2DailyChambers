@@ -34,7 +34,7 @@ client.on('ready', () => {
   console.log('yeet')
 })
 
-const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
+const daily = new cron.CronJob('00 00 17 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
