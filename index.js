@@ -42,8 +42,8 @@ const daily = new cron.CronJob('00 00 17 * * *', async(msg) => {
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber <@&858390395380826142>" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
-  .setDescription(reminder))
-  .setFooter("For notifications, go to <#856973249119649844> and type \'?l role Daily Chambers\'.");
+  .setDescription(reminder)
+  .setFooter("For notifications, go to <#856973249119649844> and type \'?l role Daily Chambers\'."))
   .catch(err => console.log(err))
   console.log('sent reminder')
 })
