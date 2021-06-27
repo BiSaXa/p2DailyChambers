@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const monthNames = ["January", "February", "March", "April", "May", "June",
  "July", "August", "September", "October", "November", "December"]
-const weekNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+const weekNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const spMaps = ["Portal Carousel", "Portal Gun", "Smooth Jazz", "Cube Momentum", "Future Starter",
  "Secret Panel", "Wakeup", "Incinerator", "Laser Intro", "Laser Stairs", "Dual Lasers", "Laser Over Goo",
  "Catapult Intro", "Trust Fling", "Pit Flings", "Fizzler Intro", "Ceiling Catapult", "Ricochet", "Bridge Intro",
@@ -36,18 +36,18 @@ client.on('ready', () => {
   console.log('today is ' + d2.getDay())
 })
 
-const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
+const daily = new cron.CronJob('30 14 15 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
-  const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
-  const reminder = ("It\'s " + weekNames[d.getDay()-1] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
+  const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
+  const reminder = ("> It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber <@&858387110973538324>" )
-  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
+  pbchannel.send(reminder)/*(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder)
   .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
   .catch(err => console.log(err))
-  console.log('sent reminder')
+  console.log('sent reminder')*/
 })
 
 daily.start()
