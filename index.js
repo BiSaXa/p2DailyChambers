@@ -36,7 +36,7 @@ client.on('ready', () => {
   console.log('today is ' + d2.getDay())
 })
 
-const daily = new cron.CronJob('30 21 15 * * *', async(msg) => {
+const daily = new cron.CronJob('00 23 15 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
@@ -48,7 +48,7 @@ const daily = new cron.CronJob('30 21 15 * * *', async(msg) => {
   .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
   .catch(err => console.log(err))
   console.log('sent reminder')
-  pbchannel.send("<@&858387110973538324>")
+  pbchannel.send("> <@&858387110973538324>")
 })
 
 daily.start()
