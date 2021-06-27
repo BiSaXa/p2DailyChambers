@@ -32,6 +32,8 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   console.log('yeet')
+  var d2 = new Date();
+  console.log('today is ' + d2.getDay())
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
