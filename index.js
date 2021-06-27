@@ -36,18 +36,19 @@ client.on('ready', () => {
   console.log('today is ' + d2.getDay())
 })
 
-const daily = new cron.CronJob('30 14 15 * * *', async(msg) => {
+const daily = new cron.CronJob('15 20 15 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
   const pbchannel = await client.channels.cache.find(channel => channel.id === '856992133888868392')
-  const reminder = ("> It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
- "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber <@&858387110973538324>" )
-  pbchannel.send(reminder)/*(new Discord.MessageEmbed().setColor("#FFFFFF")
+  const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
+ "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber" )
+  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder)
   .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
   .catch(err => console.log(err))
-  console.log('sent reminder')*/
+  console.log('sent reminder')
+  pbchannel.send("<@&858387110973538324>")
 })
 
 daily.start()
