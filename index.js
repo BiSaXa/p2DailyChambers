@@ -31,11 +31,7 @@ function randomNumber(min, max) {
 }
 
 client.on('ready', () => {
-  const guild = client.guilds.cache.get('146404426746167296')
-  //guild.members.fetch()
-  const roleamount = guild.roles.cache.get(role => role.id === "858387110973538324").members
   console.log('yeet')
-  console.log(roleamount.size)
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
