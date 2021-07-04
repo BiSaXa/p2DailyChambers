@@ -32,7 +32,7 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   const guild = client.guilds.cache.get('146404426746167296')
-  guild.fetchMembers()
+  guild.members.fetch()
   const roleamount = guild.roles.cache.find(role => role.name === "Daily Chambers")
   console.log('yeet')
   console.log(roleamount.members.size)
