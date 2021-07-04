@@ -34,7 +34,7 @@ client.on('ready', () => {
   const guild = client.guilds.cache.get('146404426746167296');
   const roleamount = guild.roles.cache.find(role => role.name == "Daily Chambers")
   console.log('yeet')
-  console.log(roleamount.members.size)
+  console.log(roleamount.members.cache.size)
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
