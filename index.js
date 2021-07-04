@@ -31,6 +31,7 @@ function randomNumber(min, max) {
 }
 
 client.on('ready', () => {
+  const guild = client.guilds.cache.get('146404426746167296');
   const roleamount = guild.roles.cache.find(role => role.id == '858387110973538324')
   console.log('yeet')
   console.log(roleamount)
