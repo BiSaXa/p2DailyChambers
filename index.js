@@ -58,8 +58,8 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
         oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
       }
       if (map == mpMaps[mp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMaps.spMaps[sp] > 6) {
-          delete oldMaps.spMaps[sp]
+        if (parseInt(d.getTime() / 86400000) - oldMaps.spMaps[mp] > 6) {
+          delete oldMaps.mpMaps[mp]
         } else {
           while (map == mpMaps[mp]) {
             mp = randomNumber(0, 47)
