@@ -21,6 +21,7 @@ const mpMaps = ["Doors", "Buttons", "Lasers", "Rat Maze", "Laser Crusher", "Behi
  "Double Bounce", "Bridge Repulsion", "Wall Repulsion", "Propulsion Crushers", "Turret Ninja", "Propulsion Retrival",
  "Vault Entrance", "Separation", "Triple Axis", "Catapult Catch", "Bridge Gels", "Maintenance", "Bridge Catch",
  "Double Lift", "Gel Maze", "Crazier Box"]
+let test = []
 
  function dateOrdinal(d) {
      return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
@@ -32,6 +33,11 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   console.log('yeet')
+})
+
+const testing = new cron.CronJob('00 * * * * *', async(msg) => {
+ console.log(test)
+ test.push("bsx")
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
