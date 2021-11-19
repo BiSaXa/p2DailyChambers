@@ -21,11 +21,11 @@ const mpMaps = ["Doors", "Buttons", "Lasers", "Rat Maze", "Laser Crusher", "Behi
  "Double Bounce", "Bridge Repulsion", "Wall Repulsion", "Propulsion Crushers", "Turret Ninja", "Propulsion Retrival",
  "Vault Entrance", "Separation", "Triple Axis", "Catapult Catch", "Bridge Gels", "Maintenance", "Bridge Catch",
  "Double Lift", "Gel Maze", "Crazier Box"]
-let test = []
+let oldMaps = []
 
- function dateOrdinal(d) {
-     return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
- }
+function dateOrdinal(d) {
+  return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
+}
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -35,27 +35,58 @@ client.on('ready', () => {
   console.log('yeet')
 })
 
-const testing = new cron.CronJob('00 * * * * *', async(msg) => {
- console.log(test)
- test.push("bsx")
-})
-
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   console.log('sending reminder')
   var d = new Date();
+  if (d.getMonth() == 11) {
+    var sp = 30
+  } else {
+    var sp = randomNumber(0, 58)
+  }
+  var mp = randomNumber(0, 47)
+  if ((d.getMonth() != 11) && Object.keys(oldMaps).length != 0) {
+    for (var map in oldMaps) {
+      if (map == spMaps[sp]) {
+        if (parseInt(d.getTime() / 86400000) - oldMaps.spMaps[sp] > 6) {
+          delete oldMaps.spMaps[sp]
+        } else {
+          while (map == spMaps[sp]) {
+            sp = randomNumber(0, 58)
+          }
+        }
+      } else {
+        oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+      }
+      if (map == mpMaps[mp]) {
+        if (parseInt(d.getTime() / 86400000) - oldMaps.spMaps[sp] > 6) {
+          delete oldMaps.spMaps[sp]
+        } else {
+          while (map == mpMaps[mp]) {
+            mp = randomNumber(0, 47)
+          }
+        }
+      } else {
+        oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+      }
+    }
+  } else if (Object.keys(oldMaps).length == 0) {
+    oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+    oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+  }
   const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
   const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
- "! You know what that means? \nToday\'s chambers are \`" + spMaps[randomNumber(0, 58)] + "\` and \`" + mpMaps[randomNumber(0, 47)] + "\`. \nEnjoy! #dailychamber" )
+ "! You know what that means? \nToday\'s chambers are \`" + spMaps[s] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder)
   .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
   .catch(err => console.log(err))
   console.log('sent reminder')
+  console.log(spMaps[sp] + " and " + mpMaps[mp])
+  console.log(oldMaps)
   pbchannel.send("> <@&858387110973538324>")
 })
 
-testing.start()
 daily.start()
 
 client.login(process.env.BOT_TOKEN)
