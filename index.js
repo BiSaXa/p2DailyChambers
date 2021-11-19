@@ -55,6 +55,7 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   pbchannel.send("> <@&858387110973538324>")
 })
 
+testing.start()
 daily.start()
 
 client.login(process.env.BOT_TOKEN)
