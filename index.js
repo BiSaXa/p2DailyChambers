@@ -35,8 +35,9 @@ client.on('ready', () => {
   console.log('yeet')
 })
 
-const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
-  console.log('sending reminder')
+const daily = new cron.CronJob('00 20 19 * * *', async(msg) => {
+  try {
+    console.log('sending reminder')
   var d = new Date();
   if (d.getMonth() == 11) {
     var sp = 30
@@ -85,6 +86,9 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   console.log(spMaps[sp] + " and " + mpMaps[mp])
   console.log(oldMaps)
   pbchannel.send("> <@&858387110973538324>")
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 daily.start()
