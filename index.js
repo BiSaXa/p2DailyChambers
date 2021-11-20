@@ -35,7 +35,7 @@ client.on('ready', () => {
   console.log('yeet')
 })
 
-const daily = new cron.CronJob('00 20 19 * * *', async(msg) => {
+const daily = new cron.CronJob('00 22 19 * * *', async(msg) => {
   try {
     console.log('sending reminder')
   var d = new Date();
@@ -76,7 +76,7 @@ const daily = new cron.CronJob('00 20 19 * * *', async(msg) => {
   }
   const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
   const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
- "! You know what that means? \nToday\'s chambers are \`" + spMaps[s] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
+ "! You know what that means? \nToday\'s chambers are \`" + spMaps[sp] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
   .setAuthor("Hello there, #pb-posting")
   .setDescription(reminder)
