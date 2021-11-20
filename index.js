@@ -33,9 +33,12 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   console.log('yeet')
+  client.users.fetch('197648244698775552').then((user) => {
+    user.send('bot online')
+  })
 })
 
-const daily = new cron.CronJob('00 22 19 * * *', async(msg) => {
+const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   try {
     console.log('sending reminder')
   var d = new Date();
@@ -86,6 +89,9 @@ const daily = new cron.CronJob('00 22 19 * * *', async(msg) => {
   console.log(spMaps[sp] + " and " + mpMaps[mp])
   console.log(oldMaps)
   pbchannel.send("> <@&858387110973538324>")
+  client.users.fetch('197648244698775552').then((user) => {
+    user.send(oldMaps)
+  })
   } catch (err) {
     console.log(err)
   }
