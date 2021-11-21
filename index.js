@@ -90,9 +90,6 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   console.log(spMaps[sp] + " and " + mpMaps[mp])
   console.log(oldMapsTesting.toString())
   pbchannel.send("> <@&858387110973538324>")
-  client.users.fetch('197648244698775552').then((user) => {
-    user.send(oldMapsTesting.toString())
-  })
   } catch (err) {
     console.log(err)
   }
@@ -149,9 +146,6 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   console.log(spMaps[sp] + " and " + mpMaps[mp])
   console.log(oldMaps)
   pbchannel.send("> <@&858387110973538324>")
-  client.users.fetch('197648244698775552').then((user) => {
-    user.send(oldMaps.toString())
-  })
   } catch (err) {
     console.log(err)
   }
