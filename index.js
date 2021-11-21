@@ -54,13 +54,19 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       //map: key
       //oldMapsTesting[map]: value
       if (parseInt(d.getTime() / 60000) - oldMapsTesting[map] > 2) {
+        console.log("found old map, deleting")
         delete oldMapsTesting[map]
       }
+    }
+    for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) { // selected map in oldlist
+        console.log("selected sp map in oldlist")
         while (map == spMaps[sp]) {
+          console.log("picking new sp map")
           sp = randomNumber(0, 3)
         }
       } else {
+        console.log("selected sp map valid, adding to old list")
         oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
       }
       if (map == mpMaps[mp]) { // selected map in oldlist
