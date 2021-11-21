@@ -69,6 +69,14 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
         oldmp = true
       }
     }
+    if (oldsp == false) {
+      console.log("found new sp")
+      oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
+    }
+    if (oldmp == false) {
+      console.log("found new mp")
+      oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
+    }
     while (oldsp) {
       var found = false
       console.log("generated new sp")
