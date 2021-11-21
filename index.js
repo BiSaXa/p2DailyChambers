@@ -22,6 +22,7 @@ const mpMaps = ["Doors", "Buttons", "Lasers", "Rat Maze", "Laser Crusher", "Behi
  "Vault Entrance", "Separation", "Triple Axis", "Catapult Catch", "Bridge Gels", "Maintenance", "Bridge Catch",
  "Double Lift", "Gel Maze", "Crazier Box"]
 let oldMaps = []
+let oldMapsTesting = []
 
 function dateOrdinal(d) {
   return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
@@ -36,6 +37,65 @@ client.on('ready', () => {
   client.users.fetch('197648244698775552').then((user) => {
     user.send('bot online')
   })
+})
+
+const testing = new cron.CronJob('00 * * * * *', async(msg) => {
+  try {
+    console.log('sending reminder')
+  var d = new Date();
+  if (d.getMonth() == 11) {
+    var sp = 30
+  } else {
+    var sp = randomNumber(0, 58)
+  }
+  var mp = randomNumber(0, 47)
+  if ((d.getMonth() != 11) && Object.keys(oldMapsTesting).length != 0) {
+    for (var map in oldMapsTesting) {
+      if (map == spMaps[sp]) {
+        if (parseInt(d.getTime() / 86400000) - oldMapsTesting.spMaps[sp] > 6) {
+          delete oldMapsTesting.spMaps[sp]
+        } else {
+          while (map == spMaps[sp]) {
+            sp = randomNumber(0, 58)
+          }
+        }
+      } else {
+        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+      }
+      if (map == mpMaps[mp]) {
+        if (parseInt(d.getTime() / 86400000) - oldMapsTesting.spMaps[mp] > 6) {
+          delete oldMapsTesting.mpMaps[mp]
+        } else {
+          while (map == mpMaps[mp]) {
+            mp = randomNumber(0, 47)
+          }
+        }
+      } else {
+        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+      }
+    }
+  } else if (Object.keys(oldMapsTesting).length == 0) {
+    oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+    oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+  }
+  const pbchannel = await client.channels.cache.find(channel => channel.id === '858391985785012235')
+  const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
+ "! You know what that means? \nToday\'s chambers are \`" + spMaps[sp] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
+  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
+  .setAuthor("Hello there, #pb-posting")
+  .setDescription(reminder)
+  .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
+  .catch(err => console.log(err))
+  console.log('sent reminder')
+  console.log(spMaps[sp] + " and " + mpMaps[mp])
+  console.log(oldMaps.toString())
+  pbchannel.send("> <@&858387110973538324>")
+  client.users.fetch('197648244698775552').then((user) => {
+    user.send(oldMaps.toString())
+  })
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
@@ -90,7 +150,7 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   console.log(oldMaps)
   pbchannel.send("> <@&858387110973538324>")
   client.users.fetch('197648244698775552').then((user) => {
-    user.send(oldMaps)
+    user.send(oldMaps.toString())
   })
   } catch (err) {
     console.log(err)
@@ -98,5 +158,6 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
 })
 
 daily.start()
+testing.start()
 
 client.login(process.env.BOT_TOKEN)
