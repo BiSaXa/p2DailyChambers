@@ -34,164 +34,9 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   console.log('yeet')
-  client.users.fetch('197648244698775552').then((user) => {
+  /*client.users.fetch('197648244698775552').then((user) => {
     user.send('bot online')
-  })
-})
-
-const testing = new cron.CronJob('00 * * * * *', async(msg) => {
-  try {
-    console.log('sending reminder')
-  var d = new Date();
-  if (d.getMonth() == 11) {
-    var sp = 30
-  } else {
-    var sp = randomNumber(0, 3)
-  }
-  var mp = randomNumber(0, 3)
-  if (Object.keys(oldMapsTesting).length != 0) {
-    for (var map in oldMapsTesting) {
-      //map: key
-      //oldMapsTesting[map]: value
-      if (parseInt(d.getTime() / 60000) - oldMapsTesting[map] > 2) {
-        console.log("found old map, deleting")
-        delete oldMapsTesting[map]
-      }
-    }
-    var oldsp = false, oldmp = false
-    for (var map in oldMapsTesting) {
-      if (map == spMaps[sp]) {
-        console.log("found same sp")
-        oldsp = true
-      }
-      if (map == mpMaps[mp]) {
-        console.log("found same mp")
-        oldmp = true
-      }
-    }
-    if (oldsp == false) {
-      console.log("found new sp")
-      oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
-    }
-    if (oldmp == false) {
-      console.log("found new mp")
-      oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-    }
-    while (oldsp) {
-      var found = false
-      console.log("generated new sp")
-      sp = randomNumber(0, 3)
-      for (var map in oldMapsTesting) {
-        if (map == spMaps[sp]) {
-          ("found same sp")
-          found = true
-        }
-      }
-      if (!found) {
-        console.log("new sp valid, adding to old")
-        oldsp = false
-        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
-      }
-    }
-    while (oldmp) {
-      var found = false
-      console.log("generated new mp")
-      mp = randomNumber(0, 3)
-      for (var map in oldMapsTesting) {
-        if (map == mpMaps[mp]) {
-          ("found same mp")
-          found = true
-        }
-      }
-      if (!found) {
-        console.log("new mp valid, adding to old")
-        oldmp = false
-        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-      }
-    }
-
-    /*for (var map in oldMapsTesting) {
-      if (map == spMaps[sp]) { // selected map in oldlist
-        console.log("selected sp map in oldlist")
-        while (map == spMaps[sp]) {
-          console.log("picking new sp map")
-          sp = randomNumber(0, 3)
-        }
-      } else {
-        console.log("selected sp map valid, adding to old list")
-        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
-      }
-      if (map == mpMaps[mp]) { // selected map in oldlist
-        while (map == mpMaps[mp]) {
-          mp = randomNumber(0, 3)
-        }
-      } else {
-        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-      }
-    }*/
-    /*if (oldMapsTesting.includes(spMaps[sp])) {
-      while (oldMapsTesting.includes(spMaps[sp])) {
-        sp = randomNumber(0, 3)
-      }
-    } else {
-      oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
-    }
-    if (oldMapsTesting.includes(mpMaps[mp])) {
-      while (oldMapsTesting.includes(mpMaps[mp])) {
-        mp = randomNumber(0, 3)
-      }
-    } else {
-      oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-    }*/
-    /*
-    for (var map in oldMapsTesting) {
-      if (map == spMaps[sp]) {
-        console.log("map in spmaps[sp]")
-        if (parseInt(d.getTime() / 60000) - oldMapsTesting[spMaps[sp]] > 3) {
-          delete oldMapsTesting[spMaps[sp]]
-          console.log("old map over time limit, deleting")
-        } else {
-          while (map == oldMapsTesting[sp]) {
-            console.log("old map found, rolling new map")
-            sp = randomNumber(0, 3)
-          }
-        }
-      } else {
-        console.log("map not in spmaps[sp]")
-        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
-      }
-      if (map == mpMaps[mp]) {
-        if (parseInt(d.getTime() / 60000) - oldMapsTesting[mpMaps[mp]] > 3) {
-          delete oldMapsTesting[mpMaps[mp]]
-        } else {
-          while (map == mpMaps[mp]) {
-            mp = randomNumber(0, 3)
-          }
-        }
-      } else {
-        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-      }
-    }*/
-  } else {
-    oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
-    oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-  }
-  sp = 30
-  const pbchannel = await client.channels.cache.find(channel => channel.id === '858391985785012235')
-  const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
- "! You know what that means? \nToday\'s chambers are \`" + spMaps[sp] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
-  pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
-  .setAuthor("Hello there, #pb-posting")
-  .setDescription(reminder)
-  .setFooter("For notifications, go to #bot-spam and type \'?L role Daily Chambers\'."))
-  .catch(err => console.log(err))
-  console.log('sent reminder')
-  console.log(spMaps[sp] + " and " + mpMaps[mp])
-  console.log(oldMapsTesting)
-  pbchannel.send("> <@&858387110973538324>")
-  } catch (err) {
-    console.log(err)
-  }
+  })*/
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
@@ -205,41 +50,41 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
       //map: key
       //oldMapsTesting[map]: value
       if (parseInt(d.getTime() / 86400000) - oldMapsTesting[map] > 6) {
-        console.log("found old map, deleting")
+        //console.log("found old map, deleting")
         delete oldMapsTesting[map]
       }
     }
     var oldsp = false, oldmp = false
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
-        console.log("found same sp")
+        //console.log("found same sp")
         oldsp = true
       }
       if (map == mpMaps[mp]) {
-        console.log("found same mp")
+        //console.log("found same mp")
         oldmp = true
       }
     }
     if (oldsp == false) {
-      console.log("found new sp")
+      //console.log("found new sp")
       oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
     }
     if (oldmp == false) {
-      console.log("found new mp")
+      //console.log("found new mp")
       oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
     }
     while (oldsp) {
       var found = false
-      console.log("generated new sp")
+      //console.log("generated new sp")
       sp = randomNumber(0, 58)
       for (var map in oldMapsTesting) {
         if (map == spMaps[sp]) {
-          ("found same sp")
+          //console.log("found same sp")
           found = true
         }
       }
       if (!found) {
-        console.log("new sp valid, adding to old")
+        //console.log("new sp valid, adding to old")
         oldsp = false
         oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
       }
@@ -250,12 +95,12 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
       mp = randomNumber(0, 47)
       for (var map in oldMapsTesting) {
         if (map == mpMaps[mp]) {
-          ("found same mp")
+          //console.log("found same mp")
           found = true
         }
       }
       if (!found) {
-        console.log("new mp valid, adding to old")
+        //console.log("new mp valid, adding to old")
         oldmp = false
         oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
       }
@@ -285,6 +130,5 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
 })
 
 daily.start()
-testing.start()
 
 client.login(process.env.BOT_TOKEN)
