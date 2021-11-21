@@ -51,9 +51,23 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   var mp = randomNumber(0, 3)
   if (Object.keys(oldMapsTesting).length != 0) {
     for (var map in oldMapsTesting) {
-      //if (map)
-      console.log(oldMapsTesting[map])
-    }/*
+      //map: key
+      //oldMapsTesting[map]: value
+      if (parseInt(d.getTime() / 60000) - oldMapsTesting[map] > 2) {
+        delete oldMapsTesting[map]
+      }
+    }
+    if (oldMapsTesting.includes(spMaps[sp])) {
+      while (oldMapsTesting.includes(spMaps[sp])) {
+        sp = randomNumber(0, 3)
+      }
+    }
+    if (oldMapsTesting.includes(mpMaps[mp])) {
+      while (oldMapsTesting.includes(mpMaps[mp])) {
+        mp = randomNumber(0, 3)
+      }
+    }
+    /*
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
         console.log("map in spmaps[sp]")
