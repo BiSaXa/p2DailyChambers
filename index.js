@@ -58,7 +58,51 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
         delete oldMapsTesting[map]
       }
     }
+    var oldsp = false, oldmp = false
     for (var map in oldMapsTesting) {
+      if (map == spMaps[sp]) {
+        console.log("found same sp")
+        oldsp = true
+      }
+      if (map == mpMaps[mp]) {
+        console.log("found same mp")
+        oldmp = true
+      }
+    }
+    while (oldsp) {
+      var found = false
+      console.log("generated new sp")
+      sp = randomNumber(0, 3)
+      for (var map in oldMapsTesting) {
+        if (map == spMaps[sp]) {
+          ("found same sp")
+          found = true
+        }
+      }
+      if (!found) {
+        console.log("new sp valid, adding to old")
+        oldsp = false
+        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
+      }
+    }
+    while (oldmp) {
+      var found = false
+      console.log("generated new mp")
+      mp = randomNumber(0, 3)
+      for (var map in oldMapsTesting) {
+        if (map == mpMaps[mp]) {
+          ("found same mp")
+          found = true
+        }
+      }
+      if (!found) {
+        console.log("new mp valid, adding to old")
+        oldmp = false
+        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
+      }
+    }
+
+    /*for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) { // selected map in oldlist
         console.log("selected sp map in oldlist")
         while (map == spMaps[sp]) {
@@ -76,7 +120,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       } else {
         oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
       }
-    }
+    }*/
     /*if (oldMapsTesting.includes(spMaps[sp])) {
       while (oldMapsTesting.includes(spMaps[sp])) {
         sp = randomNumber(0, 3)
