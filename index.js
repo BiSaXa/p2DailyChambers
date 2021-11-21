@@ -176,6 +176,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
     oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
     oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
   }
+  sp = 30
   const pbchannel = await client.channels.cache.find(channel => channel.id === '858391985785012235')
   const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[sp] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
@@ -197,42 +198,76 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   try {
     console.log('sending reminder')
   var d = new Date();
-  if (d.getMonth() == 11) {
-    var sp = 30
-  } else {
-    var sp = randomNumber(0, 58)
-  }
+  var sp = randomNumber(0, 58)
   var mp = randomNumber(0, 47)
-  if ((d.getMonth() != 11) && Object.keys(oldMaps).length != 0) {
-    for (var map in oldMaps) {
-      if (map == spMaps[sp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMaps[spMaps[sp]] > 6) {
-          delete oldMaps.spMaps[sp]
-        } else {
-          while (map == spMaps[sp]) {
-            sp = randomNumber(0, 58)
-          }
-        }
-      } else {
-        oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
-      }
-      if (map == mpMaps[mp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMaps[mpMaps[mp]] > 6) {
-          delete oldMaps.mpMaps[mp]
-        } else {
-          while (map == mpMaps[mp]) {
-            mp = randomNumber(0, 47)
-          }
-        }
-      } else {
-        oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+  if (Object.keys(oldMapsTesting).length != 0) {
+    for (var map in oldMapsTesting) {
+      //map: key
+      //oldMapsTesting[map]: value
+      if (parseInt(d.getTime() / 86400000) - oldMapsTesting[map] > 6) {
+        console.log("found old map, deleting")
+        delete oldMapsTesting[map]
       }
     }
-  } else if (Object.keys(oldMaps).length == 0) {
-    oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
-    oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+    var oldsp = false, oldmp = false
+    for (var map in oldMapsTesting) {
+      if (map == spMaps[sp]) {
+        console.log("found same sp")
+        oldsp = true
+      }
+      if (map == mpMaps[mp]) {
+        console.log("found same mp")
+        oldmp = true
+      }
+    }
+    if (oldsp == false) {
+      console.log("found new sp")
+      oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+    }
+    if (oldmp == false) {
+      console.log("found new mp")
+      oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+    }
+    while (oldsp) {
+      var found = false
+      console.log("generated new sp")
+      sp = randomNumber(0, 58)
+      for (var map in oldMapsTesting) {
+        if (map == spMaps[sp]) {
+          ("found same sp")
+          found = true
+        }
+      }
+      if (!found) {
+        console.log("new sp valid, adding to old")
+        oldsp = false
+        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+      }
+    }
+    while (oldmp) {
+      var found = false
+      console.log("generated new mp")
+      mp = randomNumber(0, 47)
+      for (var map in oldMapsTesting) {
+        if (map == mpMaps[mp]) {
+          ("found same mp")
+          found = true
+        }
+      }
+      if (!found) {
+        console.log("new mp valid, adding to old")
+        oldmp = false
+        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+      }
+    }
+  } else {
+    oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+    oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
   }
-  const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
+  if (d.getMonth() == 11) {
+    sp = 30
+  }
+  const pbchannel = await client.channels.cache.find(channel => channel.id === '858391985785012235')
   const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[sp] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
@@ -242,7 +277,7 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   .catch(err => console.log(err))
   console.log('sent reminder')
   console.log(spMaps[sp] + " and " + mpMaps[mp])
-  console.log(oldMaps)
+  console.log(oldMapsTesting)
   pbchannel.send("> <@&858387110973538324>")
   } catch (err) {
     console.log(err)
