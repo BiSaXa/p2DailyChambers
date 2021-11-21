@@ -49,7 +49,11 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
     var sp = randomNumber(0, 3)
   }
   var mp = randomNumber(0, 3)
-  if ((d.getMonth() != 11) && Object.keys(oldMapsTesting).length != 0) {
+  if (Object.keys(oldMapsTesting).length != 0) {
+    for (var map in oldMapsTesting) {
+      //if (map)
+      console.log(map)
+    }/*
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
         console.log("map in spmaps[sp]")
@@ -77,8 +81,8 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       } else {
         oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
       }
-    }
-  } else if (Object.keys(oldMapsTesting).length == 0) {
+    }*/
+  } else {
     oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
     oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
   }
