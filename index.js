@@ -88,10 +88,10 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   .catch(err => console.log(err))
   console.log('sent reminder')
   console.log(spMaps[sp] + " and " + mpMaps[mp])
-  console.log(oldMaps.toString())
+  console.log(oldMapsTesting.toString())
   pbchannel.send("> <@&858387110973538324>")
   client.users.fetch('197648244698775552').then((user) => {
-    user.send(oldMaps.toString())
+    user.send(oldMapsTesting.toString())
   })
   } catch (err) {
     console.log(err)
