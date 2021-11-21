@@ -61,11 +61,15 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       while (oldMapsTesting.includes(spMaps[sp])) {
         sp = randomNumber(0, 3)
       }
+    } else {
+      oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
     }
     if (oldMapsTesting.includes(mpMaps[mp])) {
       while (oldMapsTesting.includes(mpMaps[mp])) {
         mp = randomNumber(0, 3)
       }
+    } else {
+      oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
     }
     /*
     for (var map in oldMapsTesting) {
