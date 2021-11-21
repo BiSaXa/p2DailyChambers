@@ -63,7 +63,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
         oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
       }
       if (map == mpMaps[mp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMapsTesting.spMaps[mp] > 6) {
+        if (parseInt(d.getTime() / 86400000) - oldMapsTesting.mpMaps[mp] > 6) {
           delete oldMapsTesting.mpMaps[mp]
         } else {
           while (map == mpMaps[mp]) {
@@ -88,7 +88,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   .catch(err => console.log(err))
   console.log('sent reminder')
   console.log(spMaps[sp] + " and " + mpMaps[mp])
-  console.log(oldMapsTesting.toString())
+  console.log(oldMapsTesting)
   pbchannel.send("> <@&858387110973538324>")
   } catch (err) {
     console.log(err)
@@ -119,7 +119,7 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
         oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
       }
       if (map == mpMaps[mp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMaps.spMaps[mp] > 6) {
+        if (parseInt(d.getTime() / 86400000) - oldMaps.mpMaps[mp] > 6) {
           delete oldMaps.mpMaps[mp]
         } else {
           while (map == mpMaps[mp]) {
