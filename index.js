@@ -56,8 +56,22 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       if (parseInt(d.getTime() / 60000) - oldMapsTesting[map] > 2) {
         delete oldMapsTesting[map]
       }
+      if (map == spMaps[sp]) { // selected map in oldlist
+        while (map == spMaps[sp]) {
+          sp = randomNumber(0, 3)
+        }
+      } else {
+        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
+      }
+      if (map == mpMaps[mp]) { // selected map in oldlist
+        while (map == mpMaps[mp]) {
+          mp = randomNumber(0, 3)
+        }
+      } else {
+        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
+      }
     }
-    if (oldMapsTesting.includes(spMaps[sp])) {
+    /*if (oldMapsTesting.includes(spMaps[sp])) {
       while (oldMapsTesting.includes(spMaps[sp])) {
         sp = randomNumber(0, 3)
       }
@@ -70,7 +84,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       }
     } else {
       oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
-    }
+    }*/
     /*
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
