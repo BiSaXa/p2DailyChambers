@@ -60,7 +60,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
           }
         }
       } else {
-        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
       }
       if (map == mpMaps[mp]) {
         if (parseInt(d.getTime() / 60000) - oldMapsTesting[mpMaps[mp]] > 3) {
