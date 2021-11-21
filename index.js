@@ -46,17 +46,17 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   if (d.getMonth() == 11) {
     var sp = 30
   } else {
-    var sp = randomNumber(0, 4)
+    var sp = randomNumber(0, 3)
   }
-  var mp = randomNumber(0, 4)
+  var mp = randomNumber(0, 3)
   if ((d.getMonth() != 11) && Object.keys(oldMapsTesting).length != 0) {
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
         if (parseInt(d.getTime() / 60000) - oldMapsTesting[spMaps[sp]] > 3) {
-          delete oldMapsTesting.spMaps[sp]
+          delete oldMapsTesting[spMaps[sp]]
         } else {
-          while (map == spMaps[sp]) {
-            sp = randomNumber(0, 4)
+          while (map == oldMapsTesting[sp]) {
+            sp = randomNumber(0, 3)
           }
         }
       } else {
@@ -64,10 +64,10 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
       }
       if (map == mpMaps[mp]) {
         if (parseInt(d.getTime() / 60000) - oldMapsTesting[mpMaps[mp]] > 3) {
-          delete oldMapsTesting.mpMaps[mp]
+          delete oldMapsTesting[mpMaps[mp]]
         } else {
           while (map == mpMaps[mp]) {
-            mp = randomNumber(0, 4)
+            mp = randomNumber(0, 3)
           }
         }
       } else {
