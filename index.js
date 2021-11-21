@@ -22,7 +22,6 @@ const mpMaps = ["Doors", "Buttons", "Lasers", "Rat Maze", "Laser Crusher", "Behi
  "Vault Entrance", "Separation", "Triple Axis", "Catapult Catch", "Bridge Gels", "Maintenance", "Bridge Catch",
  "Double Lift", "Gel Maze", "Crazier Box"]
 let oldMaps = []
-let oldMapsTesting = []
 
 function dateOrdinal(d) {
   return d+(31==d||21==d||1==d?"st":22==d||2==d?"nd":23==d||3==d?"rd":"th")
@@ -34,9 +33,9 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   console.log('yeet')
-  /*client.users.fetch('197648244698775552').then((user) => {
+  client.users.fetch('197648244698775552').then((user) => {
     user.send('bot online')
-  })*/
+  })
 })
 
 const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
@@ -45,17 +44,17 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   var d = new Date();
   var sp = randomNumber(0, 58)
   var mp = randomNumber(0, 47)
-  if (Object.keys(oldMapsTesting).length != 0) {
-    for (var map in oldMapsTesting) {
+  if (Object.keys(oldMaps).length != 0) {
+    for (var map in oldMaps) {
       //map: key
-      //oldMapsTesting[map]: value
-      if (parseInt(d.getTime() / 86400000) - oldMapsTesting[map] > 6) {
+      //oldMaps[map]: value
+      if (parseInt(d.getTime() / 86400000) - oldMaps[map] > 6) {
         //console.log("found old map, deleting")
-        delete oldMapsTesting[map]
+        delete oldMaps[map]
       }
     }
     var oldsp = false, oldmp = false
-    for (var map in oldMapsTesting) {
+    for (var map in oldMaps) {
       if (map == spMaps[sp]) {
         //console.log("found same sp")
         oldsp = true
@@ -65,19 +64,19 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
         oldmp = true
       }
     }
-    if (oldsp == false) {
+    if (!oldsp) {
       //console.log("found new sp")
-      oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+      oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
     }
-    if (oldmp == false) {
+    if (!oldmp) {
       //console.log("found new mp")
-      oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+      oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
     }
     while (oldsp) {
       var found = false
       //console.log("generated new sp")
       sp = randomNumber(0, 58)
-      for (var map in oldMapsTesting) {
+      for (var map in oldMaps) {
         if (map == spMaps[sp]) {
           //console.log("found same sp")
           found = true
@@ -86,14 +85,14 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
       if (!found) {
         //console.log("new sp valid, adding to old")
         oldsp = false
-        oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+        oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
       }
     }
     while (oldmp) {
       var found = false
       console.log("generated new mp")
       mp = randomNumber(0, 47)
-      for (var map in oldMapsTesting) {
+      for (var map in oldMaps) {
         if (map == mpMaps[mp]) {
           //console.log("found same mp")
           found = true
@@ -102,12 +101,12 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
       if (!found) {
         //console.log("new mp valid, adding to old")
         oldmp = false
-        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+        oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
       }
     }
   } else {
-    oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
-    oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+    oldMaps[spMaps[sp]] = parseInt(d.getTime() / 86400000)
+    oldMaps[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
   }
   if (d.getMonth() == 11) {
     sp = 30
@@ -122,7 +121,7 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   .catch(err => console.log(err))
   console.log('sent reminder')
   console.log(spMaps[sp] + " and " + mpMaps[mp])
-  console.log(oldMapsTesting)
+  console.log(oldMaps)
   pbchannel.send("> <@&858387110973538324>")
   } catch (err) {
     console.log(err)
