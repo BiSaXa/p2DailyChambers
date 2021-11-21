@@ -52,14 +52,18 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   if ((d.getMonth() != 11) && Object.keys(oldMapsTesting).length != 0) {
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
+        console.log("map in spmaps[sp]")
         if (parseInt(d.getTime() / 60000) - oldMapsTesting[spMaps[sp]] > 3) {
           delete oldMapsTesting[spMaps[sp]]
+          console.log("old map over time limit, deleting")
         } else {
           while (map == oldMapsTesting[sp]) {
+            console.log("old map found, rolling new map")
             sp = randomNumber(0, 3)
           }
         }
       } else {
+        console.log("map not in spmaps[sp]")
         oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
       }
       if (map == mpMaps[mp]) {
