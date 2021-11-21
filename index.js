@@ -52,7 +52,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   if (Object.keys(oldMapsTesting).length != 0) {
     for (var map in oldMapsTesting) {
       //if (map)
-      console.log(map)
+      console.log(oldMapsTesting[map])
     }/*
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
