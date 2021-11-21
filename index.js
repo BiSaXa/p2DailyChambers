@@ -52,7 +52,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
   if ((d.getMonth() != 11) && Object.keys(oldMapsTesting).length != 0) {
     for (var map in oldMapsTesting) {
       if (map == spMaps[sp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMapsTesting[spMaps[sp]] > 6) {
+        if (parseInt(d.getTime() / 60000) - oldMapsTesting[spMaps[sp]] > 3) {
           delete oldMapsTesting.spMaps[sp]
         } else {
           while (map == spMaps[sp]) {
@@ -63,7 +63,7 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
         oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
       }
       if (map == mpMaps[mp]) {
-        if (parseInt(d.getTime() / 86400000) - oldMapsTesting[mpMaps[mp]] > 6) {
+        if (parseInt(d.getTime() / 60000) - oldMapsTesting[mpMaps[mp]] > 3) {
           delete oldMapsTesting.mpMaps[mp]
         } else {
           while (map == mpMaps[mp]) {
