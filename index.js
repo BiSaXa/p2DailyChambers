@@ -71,12 +71,12 @@ const testing = new cron.CronJob('00 * * * * *', async(msg) => {
           }
         }
       } else {
-        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+        oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
       }
     }
   } else if (Object.keys(oldMapsTesting).length == 0) {
-    oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 86400000)
-    oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 86400000)
+    oldMapsTesting[spMaps[sp]] = parseInt(d.getTime() / 60000)
+    oldMapsTesting[mpMaps[mp]] = parseInt(d.getTime() / 60000)
   }
   const pbchannel = await client.channels.cache.find(channel => channel.id === '858391985785012235')
   const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
