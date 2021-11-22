@@ -38,7 +38,7 @@ client.on('ready', () => {
   })
 })
 
-const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
+const daily = new cron.CronJob('00 00 16 * * *', async(msg) => {
   try {
     console.log('sending reminder')
   var d = new Date();
@@ -111,7 +111,7 @@ const daily = new cron.CronJob('00 00 15 * * *', async(msg) => {
   if (d.getMonth() == 11) {
     sp = 30
   }
-  const pbchannel = await client.channels.cache.find(channel => channel.id === '858391985785012235')
+  const pbchannel = await client.channels.cache.find(channel => channel.id === '586983011740942337')
   const reminder = ("It\'s " + weekNames[d.getDay()] + " " + monthNames[d.getMonth()] + " " + dateOrdinal(d.getDate()) +
  "! You know what that means? \nToday\'s chambers are \`" + spMaps[sp] + "\` and \`" + mpMaps[mp] + "\`. \nEnjoy! #dailychamber" )
   pbchannel.send(new Discord.MessageEmbed().setColor("#FFFFFF")
