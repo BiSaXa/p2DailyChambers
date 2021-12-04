@@ -33,9 +33,9 @@ function randomNumber(min, max) {
 
 client.on('ready', () => {
   console.log('yeet')
-  client.users.fetch('197648244698775552').then((user) => {
+  /*client.users.fetch('197648244698775552').then((user) => {
     user.send('bot online')
-  })
+  })*/
 })
 
 const daily = new cron.CronJob('00 00 16 * * *', async(msg) => {
